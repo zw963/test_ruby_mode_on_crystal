@@ -1,0 +1,13 @@
+name: test_ruby_mode_on_crystal
+version: 0.1.0
+
+authors:
+  - Billy.Zheng <vil963@gmail.com>
+
+targets:
+  test_ruby_mode_on_crystal:
+    main: src/test_ruby_mode_on_crystal.cr
+
+crystal: 1.5.0-dev
+
+license: MIT
