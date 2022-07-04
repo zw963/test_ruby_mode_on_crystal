@@ -1,6 +1,2 @@
-# TODO: Write documentation for `TestRubyModeOnCrystal`
-module TestRubyModeOnCrystal
-  VERSION = "0.1.0"
-
-  # TODO: Put your code here
-end
+require "./ruby_invalid"
+# require "./crystal_invalid"
