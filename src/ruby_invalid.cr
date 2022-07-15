@@ -16,10 +16,10 @@ when {.even?, .odd?}
 end
 
 # ------------------------------ variable declaration ------------------------------
-# delare a variable type, use colon : , whitespace around is necessary.
+# use colon(:) to delare a variable, space around is necessary.
 num1 : Int8 = 1
 
-# type can be a untagged union type. (use |, space around)
+# type can be a untagged union type. (use |, space around is necessary)
 
 num2 : Int32 | Nil = 1 # => same as num2 : Int32?
 p! typeof(num2) # =>  (Int32 | Nil)
@@ -52,7 +52,7 @@ Color::Blue.not_blue? # => false
 
 # ------------------------------ method ------------------------------
 
-# parameter x is Int32, return type is String
+# parameter x type is Int32, return type is String
 
 def foo(x : Int32) : String
   x.to_s
@@ -81,7 +81,7 @@ add_xy y: 2, x: 3 # OK
 p! add_xy 20      # OK
 # add_xy 10, 20     # Error: wrong number of arguments for 'add_xy' (given 2, expected 1)
 
-# parameters can have alias.
+# parameters can define a alias.
 
 def increment(number, by value)
   number + value
@@ -102,7 +102,7 @@ def wrap_foo(&block : (Int32, Int32) -> _)
   puts "After foo"
 end
 
-# same as above, though, could not use _ here.
+# same as above, though, could not use _ here?
 # def wrap_foo(&block : Proc(Int32, Int32, Nil))
 #   ...
 # end
@@ -144,7 +144,7 @@ hello("hello")
 # ------------------------------ class ------------------------------
 
 class Person
-  @age = 0   # <= this is instance variable, will initialize in every instance create.
+  @age = 0   # <= a instance variable will initialize when every instance creating.
 
   def initialize(@name : String)
   end
@@ -201,15 +201,15 @@ private enum NewColor
 
 private A_INSTANCE = 100
 
-# alias is keyword.
+# alias is not same as ruby alias
 private alias Foo = Int32 -> String
 foo = Foo.new { |x| x.to_s }
 # same as Proc(Int32, String).new { |x| x.to_s }
 p! foo.call(10) # => 10
 
-# setter/getter/property was keyword (defined by macro)
+# setter/getter/property defined by macro
 class ClassA
-  setter name # symbol as args support too.
+  setter name # support symbol as args too.
   getter name
   property age
 end
@@ -244,7 +244,7 @@ typeof([1, "hello", 'x']) # => Array(Int32 | String | Char))
 
 x = [] of Int32 # => same as Array(Int32).new
 
-# use can use typeof(???) as type directly.
+# typeof(???) can be used as type directly
 y = [] of typeof([1, "hello", 'x'])
 y = Array(Int32 | String | Char).new # same as above
 
@@ -268,7 +268,7 @@ t1 = Tuple.new(Int32, String) # <= define a empty tuple
 
 # create a empty Hash, Hash/Array/Class allocated on heap, mutable
 h = {} of String => Int32
-h1 = Hash(String, Int32).new # same as h
+# h = Hash(String, Int32).new # same as above
 p! typeof(h) # => Hash(String, Int32)
 
 # hash use hash rocket form.
@@ -286,7 +286,7 @@ p! named_tuple1[:three]? # => nil
 
 # ------------------------------ Others ------------------------------
 
-# with keyword used to yield self to block. (ruby instance_eval)
+# with keyword can be used to yield self to block. (ruby instance_eval)
 
 class Foo11
   def one
