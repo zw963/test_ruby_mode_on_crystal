@@ -240,16 +240,47 @@ end
 
 # ------------------------------ collection of elements ------------------------------
 
-typeof([1, "hello", 'x']) # => Array(Int32 | String | Char))
+# Hash/Array/Class allocated on heap, is mutable.
 
-x = [] of Int32 # => same as Array(Int32).new
+# create a empty array
+array1 = [] of Int32
+array2 = Array(Int32).new # => same as above
+p! typeof(array1) # => Array(Int32)
+
+array3 = [100, 200, 300] of Int64
+p! typeof(array3) # => Array(Int64)
+
+# create a empty Hash
+hash1 = {} of String => Int32
+hash2 = Hash(String, Int32).new # => save as above
+p! typeof(hash1) # => Hash(String, Int32)
+
+hash3 = {"one" => 1, "two" => 2} of String => Int64
+p! typeof(hash3) # => Hash(String, Int64)
+
+# hash use hash rocket form.
+h2 = {"one" => 1, "two" => 2}
+# h2["three"] # => Unhandled exception: Missing hash key: "three" (KeyError)
+p! h2["three"]? # => nil
+
+# named tuple use 1.9 new hash syntax
+named_tuple1 = {one: 1, two: 2}
+p! named_tuple1[:one] # => 1
+p! named_tuple1["one"] # => 1
+p! named_tuple1[:three]? # => nil
+
+
+
+# define a tuple, tuple/named tuple/struct is allocated on stack, immutable
+t = {100, "hello"} # <= define a tuple literal
+t1 = Tuple.new(Int32, String) # <= define a empty tuple
 
 # typeof(???) can be used as type directly
+typeof([1, "hello", 'x']) # => Array(Int32 | String | Char))
 y = [] of typeof([1, "hello", 'x'])
 y = Array(Int32 | String | Char).new # same as above
 
 ary1 = [1, 2, -1]
-
 # ary1[3] # => Unhandled exception: Index out of bounds (IndexError)
 
 # many methods and all type Crystal have a ? suffix counterpart，Array#[] is.
@@ -261,28 +292,6 @@ p! ary1.map &.abs # => [1, 2, 1]
 # it support invoke method which has arguments.
 # many symbol can be invoke as methods, e.g. :+   :-  :* :/ :%  etc ...
 p! ary1.map &.*(2) # => [2, 4, -2]
-
-# define a tuple, tuple/named tuple/struct is allocated on stack, immutable
-t = {100, "hello"} # <= define a tuple literal
-t1 = Tuple.new(Int32, String) # <= define a empty tuple
-
-# create a empty Hash, Hash/Array/Class allocated on heap, mutable
-h = {} of String => Int32
-# h = Hash(String, Int32).new # same as above
-p! typeof(h) # => Hash(String, Int32)
-
-# hash use hash rocket form.
-h2 = {"one" => 1, "two" => 2}
-# h2["three"] # => Unhandled exception: Missing hash key: "three" (KeyError)
-p! h["three"]? # => nil
-
-# named tuple use 1.9 new hash syntax
-named_tuple1 = {one: 1, two: 2}
-
-p! named_tuple1[:one] # => 1
-p! named_tuple1["one"] # => 1
-p! named_tuple1[:three]? # => nil
-
 
 # ------------------------------ Others ------------------------------
 
